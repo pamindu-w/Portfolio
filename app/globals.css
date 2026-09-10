@@ -1,0 +1,206 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  background-color: #1A1A2E;
+  color: #E8E9ED;
+}
+
+::selection {
+  background: #FF6A3D;
+  color: #1A1A2E;
+}
+
+:focus-visible {
+  outline: 2px solid #FF6A3D;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer components {
+  .glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1rem;
+  }
+
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 1.5rem;
+  }
+
+  .glass-pill {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 9999px;
+  }
+
+  .glass-glow-signal {
+    box-shadow: 0 0 30px rgba(255, 106, 61, 0.08), inset 0 0 30px rgba(255, 106, 61, 0.02);
+  }
+
+  .glass-glow-teal {
+    box-shadow: 0 0 30px rgba(79, 214, 196, 0.08), inset 0 0 30px rgba(79, 214, 196, 0.02);
+  }
+}
+
+.label-tag {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  color: #9AA3B5;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #FF6A3D 0%, #4FD6C4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes orb-drift-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(70px, -50px) scale(1.15); }
+}
+
+@keyframes orb-drift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-60px, 40px) scale(1.1); }
+}
+
+@keyframes orb-drift-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, 60px) scale(1.2); }
+}
+
+.orb-1 { animation: orb-drift-1 22s ease-in-out infinite; }
+.orb-2 { animation: orb-drift-2 28s ease-in-out infinite; }
+.orb-3 { animation: orb-drift-3 18s ease-in-out infinite; }
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee 28s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes border-rotate {
+  to { --border-angle: 360deg; }
+}
+
+.glare-sweep {
+  position: relative;
+  overflow: hidden;
+}
+
+.glare-sweep::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.07) 50%,
+    transparent 60%
+  );
+  transform: translateX(-120%) skewX(-20deg);
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.glare-sweep:hover::after {
+  transform: translateX(120%) skewX(-20deg);
+}
+
+.animated-border {
+  position: relative;
+}
+
+.animated-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--border-angle),
+    transparent 0deg,
+    rgba(255, 106, 61, 0.55) 90deg,
+    rgba(79, 214, 196, 0.55) 180deg,
+    rgba(255, 106, 61, 0.55) 270deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.animated-border:hover::before {
+  opacity: 1;
+  animation: border-rotate 3s linear infinite;
+}
+
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
