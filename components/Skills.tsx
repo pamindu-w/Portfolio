@@ -1,31 +1,11 @@
 "use client";
 
-import {
-  SiPython,
-  SiJavascript,
-  SiTypescript,
-  SiCplusplus,
-  SiC,
-  SiReact,
-  SiNextdotjs,
-  SiVite,
-  SiTailwindcss,
-  SiRedux,
-  SiNodedotjs,
-  SiExpress,
-  SiFastapi,
-  SiSocketdotio,
-  SiPostgresql,
-  SiPrisma,
-  SiSqlalchemy,
-  SiGit,
-  SiGithub,
-  SiDocker,
-  SiPostman,
-  SiJsonwebtokens,
-  SiStripe,
-  SiGooglegemini,
-} from "react-icons/si";
+import { SiPython, SiJavascript, SiTypescript, SiC, SiCplusplus } from "react-icons/si";
+import { SiReact, SiNextdotjs, SiVite, SiTailwindcss, SiRedux } from "react-icons/si";
+import { SiNodedotjs, SiExpress, SiFastapi, SiSocketdotio } from "react-icons/si";
+import { SiPostgresql, SiPrisma, SiSqlalchemy } from "react-icons/si";
+import { SiGit, SiGithub, SiDocker, SiPostman } from "react-icons/si";
+import { SiJsonwebtokens, SiStripe, SiGooglegemini } from "react-icons/si";
 import { FaJava } from "react-icons/fa6";
 import type { IconType } from "react-icons";
 import Reveal from "./Reveal";
@@ -88,9 +68,11 @@ const primarySkills = skills.filter((_, i) => i % 2 === 0);
 const secondarySkills = skills.filter((_, i) => i % 2 === 1);
 
 export default function Skills() {
-  const row = (list: Skill[], accent: "teal" | "signal", hidden: boolean) => (
+  const row = (list: Skill[], accent: "signal" | "teal", hidden: boolean) => (
     <div
-      className={`flex shrink-0 items-center gap-3 pr-3 ${hidden ? "" : ""}`}
+      className={`flex shrink-0 items-center gap-3 pr-3 ${
+        hidden ? "aria-hidden" : ""
+      }`}
       aria-hidden={hidden || undefined}
     >
       {list.map((skill) => {
@@ -103,7 +85,7 @@ export default function Skills() {
             }`}
           >
             <Icon
-              size={30}
+              size={22}
               className={`transition-colors duration-300 text-white/70 ${
                 accent === "teal" ? "group-hover:text-teal" : "group-hover:text-signal"
               }`}
@@ -123,7 +105,7 @@ export default function Skills() {
       className="relative py-24 md:py-32"
     >
       <div className="mx-auto max-w-content px-6">
-        <div className="mb-20 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
+        <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
           <div>
             <Reveal>
               <h2 className="max-w-3xl font-display text-4xl font-bold leading-[1.05] text-white md:text-6xl">
@@ -166,21 +148,28 @@ export default function Skills() {
         </div>
 
         <Reveal>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {categories.map((cat, ci) => (
               <Reveal key={cat.title} delay={ci * 0.08}>
                 <div className="glass !rounded-3xl p-6">
                   <div className="mb-5 flex items-center justify-between">
                     <span
-                      className={`font-mono text-[11px] uppercase tracking-[0.2em] ${
-                        cat.accent === "teal" ? "text-teal" : "text-signal"
+                      className={`block h-4 w-1 rounded-full ${
+                        cat.accent === "teal" ? "bg-teal/80" : "bg-signal/80"
                       }`}
-                    >
-                      {cat.title}
-                    </span>
-                    <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] font-medium text-mist">
-                      {cat.skills.length}
-                    </span>
+                    />
+                    <div className="flex items-center gap-3">
+                      <h3
+                        className={`font-mono text-[11px] uppercase tracking-[0.2em] ${
+                          cat.accent === "teal" ? "text-teal" : "text-signal"
+                        }`}
+                      >
+                        {cat.title}
+                      </h3>
+                      <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] font-medium text-mist">
+                        {cat.skills.length}
+                      </span>
+                    </div>
                   </div>
 
                   <div className="flex flex-wrap gap-2">
@@ -189,15 +178,19 @@ export default function Skills() {
                       return (
                         <div
                           key={skill.name}
-                          className={`glass !rounded-lg w-fit px-3 py-2 transition-colors duration-300 text-white/90 ${
-                            cat.accent === "teal" ? "hover:border-teal/40" : "hover:border-signal/40"
+                          className={`chip ${
+                            cat.accent === "teal" ? "chip--teal" : ""
                           }`}
                         >
                           <Icon
                             size={16}
-                            className="inline-block text-white/70 transition-colors duration-300"
+                            className={`inline-block text-white/70 transition-colors duration-300 ${
+                              cat.accent === "teal"
+                                ? "group-hover:text-teal"
+                                : "group-hover:text-signal"
+                            }`}
                           />
-                          <span className="ml-2 align-middle text-[13px] font-medium">
+                          <span className="ml-2 text-[13px] font-medium text-white/90 align-middle">
                             {skill.name}
                           </span>
                         </div>
@@ -210,16 +203,16 @@ export default function Skills() {
           </div>
         </Reveal>
 
-        <Reveal delay={0.15}>
-          <div className="marquee glass skill-row-mask !rounded-3xl overflow-hidden py-10 md:py-12">
+        <Reveal>
+          <div className="marquee glass skill-row-mask !rounded-3xl overflow-hidden py-6 md:py-8">
             <div className="skill-row-mask flex flex-col gap-4 md:gap-6">
               <div className="skill-track flex w-max">
                 {row(primarySkills, "signal", false)}
                 {row(primarySkills, "signal", true)}
               </div>
               <div className="skill-track-reverse flex w-max">
-                {row(secondarySkills, "teal", false)}
-                {row(secondarySkills, "teal", true)}
+                {row(primarySkills, "teal", false)}
+                {row(primarySkills, "teal", true)}
               </div>
             </div>
           </div>
@@ -250,8 +243,8 @@ export default function Skills() {
           animation-play-state: paused;
         }
         .skill-row-mask {
-          mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
-          -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+          mask-image: linear-gradient(to right, transparent, black 13%, black 87%, transparent);
+          -webkit-mask-image: linear-gradient(to right, transparent, black 13%, black 87%, transparent);
         }
         .skill-tile {
           display: flex;
@@ -259,9 +252,9 @@ export default function Skills() {
           align-items: center;
           justify-content: center;
           gap: 0.5rem;
-          width: 138px;
-          min-width: 138px;
-          height: 128px;
+          width: 104px;
+          min-width: 104px;
+          height: 88px;
           background: rgba(255, 255, 255, 0.03);
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
@@ -271,13 +264,13 @@ export default function Skills() {
         }
         .skill-tile:hover {
           border-color: rgba(255, 106, 61, 0.45);
-          box-shadow: 0 0 30px rgba(255, 106, 61, 0.15);
+          box-shadow: 0 0 30px rgba(255, 106, 61, 0.12);
           background: rgba(255, 255, 255, 0.05);
           transform: translateY(-3px);
         }
         .skill-tile--teal:hover {
           border-color: rgba(79, 214, 196, 0.45);
-          box-shadow: 0 0 30px rgba(79, 214, 196, 0.15);
+          box-shadow: 0 0 30px rgba(79, 214, 196, 0.12);
         }
       `}</style>
     </section>
