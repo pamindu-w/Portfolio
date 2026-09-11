@@ -66,15 +66,31 @@ const skills: Skill[] = [
 
 const totalSkills = skills.length;
 
+type Category = {
+  title: string;
+  accent: "teal" | "signal";
+  skills: Skill[];
+};
+
+const byName = (names: string[]) =>
+  names.map((n) => skills.find((s) => s.name === n)!).filter(Boolean);
+
+const categories: Category[] = [
+  { title: "Languages", accent: "teal", skills: byName(["Python", "Java", "JavaScript", "TypeScript", "C", "C++"]) },
+  { title: "Frontend", accent: "signal", skills: byName(["React.js", "Next.js", "Vite", "Tailwind CSS", "Redux Toolkit"]) },
+  { title: "Backend", accent: "teal", skills: byName(["Node.js", "Express.js", "FastAPI", "Socket.IO"]) },
+  { title: "Databases & ORM", accent: "signal", skills: byName(["PostgreSQL", "Prisma", "SQLAlchemy"]) },
+  { title: "DevOps & Tools", accent: "teal", skills: byName(["Git", "GitHub", "Docker", "Postman"]) },
+  { title: "Integrations & AI", accent: "signal", skills: byName(["JWT Auth", "Stripe API", "Gemini AI"]) },
+];
+
 const primarySkills = skills.filter((_, i) => i % 2 === 0);
 const secondarySkills = skills.filter((_, i) => i % 2 === 1);
 
 export default function Skills() {
-  const row = (list: Skill[], accent: "signal" | "teal", hidden: boolean) => (
+  const row = (list: Skill[], accent: "teal" | "signal", hidden: boolean) => (
     <div
-      className={`flex shrink-0 items-center gap-3 pr-3 ${
-        hidden ? "aria-hidden" : ""
-      }`}
+      className={`flex shrink-0 items-center gap-3 pr-3 ${hidden ? "" : ""}`}
       aria-hidden={hidden || undefined}
     >
       {list.map((skill) => {
@@ -127,7 +143,7 @@ export default function Skills() {
           </div>
 
           <Reveal delay={0.2}>
-            <div className="glass glare-sweep animated-border !rounded-2xl flex gap-8 p-6">
+            <div className="glass !rounded-2xl flex gap-8 p-6">
               <div>
                 <div className="font-display text-4xl font-bold text-white">
                   <CountUp to={totalSkills} suffix="+" />
@@ -150,7 +166,52 @@ export default function Skills() {
         </div>
 
         <Reveal>
-          <div className="marquee glass !rounded-3xl overflow-hidden py-10 md:py-12">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {categories.map((cat, ci) => (
+              <Reveal key={cat.title} delay={ci * 0.08}>
+                <div className="glass !rounded-3xl p-6">
+                  <div className="mb-5 flex items-center justify-between">
+                    <span
+                      className={`font-mono text-[11px] uppercase tracking-[0.2em] ${
+                        cat.accent === "teal" ? "text-teal" : "text-signal"
+                      }`}
+                    >
+                      {cat.title}
+                    </span>
+                    <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] font-medium text-mist">
+                      {cat.skills.length}
+                    </span>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2">
+                    {cat.skills.map((skill) => {
+                      const Icon = skill.icon;
+                      return (
+                        <div
+                          key={skill.name}
+                          className={`glass !rounded-lg w-fit px-3 py-2 transition-colors duration-300 text-white/90 ${
+                            cat.accent === "teal" ? "hover:border-teal/40" : "hover:border-signal/40"
+                          }`}
+                        >
+                          <Icon
+                            size={16}
+                            className="inline-block text-white/70 transition-colors duration-300"
+                          />
+                          <span className="ml-2 align-middle text-[13px] font-medium">
+                            {skill.name}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.15}>
+          <div className="marquee glass skill-row-mask !rounded-3xl overflow-hidden py-10 md:py-12">
             <div className="skill-row-mask flex flex-col gap-4 md:gap-6">
               <div className="skill-track flex w-max">
                 {row(primarySkills, "signal", false)}
