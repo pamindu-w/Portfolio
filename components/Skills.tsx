@@ -28,7 +28,6 @@ import {
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa6";
 import type { IconType } from "react-icons";
-import { useEffect, useRef, useState } from "react";
 import Reveal from "./Reveal";
 import CountUp from "./CountUp";
 
@@ -67,33 +66,40 @@ const skills: Skill[] = [
 
 const totalSkills = skills.length;
 
+const primarySkills = skills.filter((_, i) => i % 2 === 0);
+const secondarySkills = skills.filter((_, i) => i % 2 === 1);
+
 export default function Skills() {
-  const [hovered, setHovered] = useState<number | null>(null);
-  const [paused, setPaused] = useState(false);
-  const [wheel, setWheel] = useState({ radius: 350, tile: 110 });
-  const wheelRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = wheelRef.current;
-    if (!el) return;
-
-    const update = () => {
-      const w = el.clientWidth;
-      const tile = w < 480 ? 84 : 120;
-      const radius = Math.max(50, Math.round(w / 2 - tile / 2 - 8));
-      setWheel({ radius, tile });
-    };
-
-    update();
-    if (typeof ResizeObserver === "undefined") return;
-    const observer = new ResizeObserver(update);
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-const count = skills.length;
-const angleStep = 360 / count;
-const { radius, tile } = wheel;
+  const row = (list: Skill[], accent: "signal" | "teal", hidden: boolean) => (
+    <div
+      className={`flex shrink-0 items-center gap-3 pr-3 ${
+        hidden ? "aria-hidden" : ""
+      }`}
+      aria-hidden={hidden || undefined}
+    >
+      {list.map((skill) => {
+        const Icon = skill.icon;
+        return (
+          <div
+            key={skill.name}
+            className={`group skill-tile ${
+              accent === "teal" ? "skill-tile--teal" : ""
+            }`}
+          >
+            <Icon
+              size={30}
+              className={`transition-colors duration-300 text-white/70 ${
+                accent === "teal" ? "group-hover:text-teal" : "group-hover:text-signal"
+              }`}
+            />
+            <span className="text-[11px] font-medium leading-none text-center text-white/80">
+              {skill.name}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
 
   return (
     <section
@@ -144,108 +150,75 @@ const { radius, tile } = wheel;
         </div>
 
         <Reveal>
-          <div className="flex flex-col items-center">
-            <div className="glass !rounded-3xl w-full max-w-[920px] px-6 py-4 md:px-12 md:py-6">
-              <div
-                ref={wheelRef}
-                className="relative mx-auto hidden h-[720px] w-full max-w-[800px] md:block"
-                style={{ perspective: "1600px" }}
-              >
-                <style jsx>{`
-                  @keyframes wheelSpin {
-                    from { transform: rotateY(0deg); }
-                    to { transform: rotateY(360deg); }
-                  }
-                  .wheel-track {
-                    width: 100%;
-                    height: 100%;
-                    position: absolute;
-                    transform-style: preserve-3d;
-                    animation: wheelSpin 35s linear infinite;
-                  }
-                  .wheel-track.paused {
-                    animation-play-state: paused;
-                  }
-                  .wheel-tile {
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    backface-visibility: hidden;
-                    background: rgba(255, 255, 255, 0.03);
-                    backdrop-filter: blur(10px);
-                    -webkit-backdrop-filter: blur(10px);
-                    border: 1px solid rgba(255, 255, 255, 0.08);
-                    border-radius: 16px;
-                    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s, scale 0.3s;
-                  }
-                  .wheel-tile:hover {
-                    scale: 1.3;
-                    z-index: 10;
-                    border-color: rgba(255, 106, 61, 0.4);
-                    box-shadow: 0 0 30px rgba(255, 106, 61, 0.15);
-                  }
-                `}</style>
-
-                <div
-                  className={`wheel-track ${paused ? "paused" : ""}`}
-                  style={{ transformStyle: "preserve-3d" }}
-                >
-                  {skills.map((skill, i) => {
-                    const angle = i * angleStep;
-                    const isHovered = hovered === i;
-                    const Icon = skill.icon;
-
-                    return (
-                      <div
-                        key={skill.name}
-                        className="wheel-tile flex flex-col items-center justify-center gap-1.5 md:gap-2"
-                        style={{
-                          width: tile,
-                          height: tile,
-                          margin: `${-tile / 2}px 0 0 ${-tile / 2}px`,
-                          transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
-                          backfaceVisibility: "hidden",
-                        }}
-                        onMouseEnter={() => { setHovered(i); setPaused(true); }}
-                        onMouseLeave={() => { setHovered(null); setPaused(false); }}
-                      >
-                        <Icon
-                          size={36}
-                          className={`transition-colors duration-300 ${
-                            isHovered ? "text-teal" : "text-white/70"
-                          }`}
-                        />
-                        <span className="text-[11px] font-medium text-white/80 leading-none text-center">
-                          {skill.name}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
+          <div className="marquee glass !rounded-3xl overflow-hidden py-10 md:py-12">
+            <div className="skill-row-mask flex flex-col gap-4 md:gap-6">
+              <div className="skill-track flex w-max">
+                {row(primarySkills, "signal", false)}
+                {row(primarySkills, "signal", true)}
               </div>
-
-              <div className="md:hidden">
-                <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-4">
-                  {skills.map((skill) => {
-                    const Icon = skill.icon;
-                    return (
-                      <div
-                        key={skill.name}
-                        className="glass !rounded-xl flex flex-col items-center gap-1.5 px-1 py-3 text-center transition-colors"
-                      >
-                        <Icon size={22} className="text-white/70" />
-                        <span className="text-[10px] font-medium leading-none text-white/80">
-                          {skill.name}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
+              <div className="skill-track-reverse flex w-max">
+                {row(secondarySkills, "teal", false)}
+                {row(secondarySkills, "teal", true)}
               </div>
             </div>
           </div>
         </Reveal>
       </div>
+
+      <style jsx>{`
+        @keyframes skillMarquee {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+        @keyframes skillMarqueeReverse {
+          from { transform: translateX(0); }
+          to { transform: translateX(50%); }
+        }
+        .skill-track,
+        .skill-track-reverse {
+          will-change: transform;
+        }
+        .skill-track {
+          animation: skillMarquee 45s linear infinite;
+        }
+        .skill-track-reverse {
+          animation: skillMarqueeReverse 45s linear infinite;
+        }
+        .marquee:hover .skill-track,
+        .marquee:hover .skill-track-reverse {
+          animation-play-state: paused;
+        }
+        .skill-row-mask {
+          mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+          -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+        }
+        .skill-tile {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          width: 138px;
+          min-width: 138px;
+          height: 128px;
+          background: rgba(255, 255, 255, 0.03);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 1rem;
+          transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s, background 0.3s;
+        }
+        .skill-tile:hover {
+          border-color: rgba(255, 106, 61, 0.45);
+          box-shadow: 0 0 30px rgba(255, 106, 61, 0.15);
+          background: rgba(255, 255, 255, 0.05);
+          transform: translateY(-3px);
+        }
+        .skill-tile--teal:hover {
+          border-color: rgba(79, 214, 196, 0.45);
+          box-shadow: 0 0 30px rgba(79, 214, 196, 0.15);
+        }
+      `}</style>
     </section>
   );
 }
