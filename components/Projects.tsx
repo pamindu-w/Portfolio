@@ -1,7 +1,6 @@
 import { Truck, Receipt, BookOpen, CalendarDays, Shapes, type LucideIcon } from "lucide-react";
 import type { ComponentType } from "react";
 import TiltPanel from "./TiltPanel";
-import FreshRouteArt from "./art/FreshRouteArt";
 import CampusArt from "./art/CampusArt";
 import Gallery from "./Gallery";
 import Reveal from "./Reveal";
@@ -46,6 +45,14 @@ const cadImages = [
   "/images/cad-app/cad-5.png",
 ];
 
+const freshRouteImages = [
+  "/images/fresh-route/fresh-route-1.png",
+  "/images/fresh-route/fresh-route-2.png",
+  "/images/fresh-route/fresh-route-3.png",
+  "/images/fresh-route/fresh-route-4.png",
+  "/images/fresh-route/fresh-route-5.png",
+];
+
 const projects: Project[] = [
   {
     index: "01",
@@ -54,7 +61,7 @@ const projects: Project[] = [
     tagline: "Smart logistics & delivery management system",
     body: "A web and mobile platform for fleet, delivery, and route management. Bin-packing and spatial clustering decide how deliveries get grouped, PostGIS handles the geography, and Socket.IO keeps every vehicle's position live on the map.",
     stack: ["React", "Node.js", "PostgreSQL", "PostGIS", "Socket.IO", "Google Maps API"],
-    Art: FreshRouteArt,
+    images: freshRouteImages,
   },
   {
     index: "02",
