@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import Reveal from "./Reveal";
 
-const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const BASE_PATH = "/Portfolio";
 
 const roles = [
   {

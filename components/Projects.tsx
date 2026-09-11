@@ -16,7 +16,7 @@ interface Project {
   images?: string[];
 }
 
-const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const BASE_PATH = "/Portfolio";
 
 const expenseImages = [
   `${BASE_PATH}/images/expense-analyzer/expense-1.png`,

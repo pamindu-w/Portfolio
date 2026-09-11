@@ -7,7 +7,7 @@ import MagneticButton from "./MagneticButton";
 import NameReveal from "./NameReveal";
 import CountUp from "./CountUp";
 
-const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const BASE_PATH = "/Portfolio";
 
 export default function Hero() {
   return (
