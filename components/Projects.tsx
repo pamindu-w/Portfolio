@@ -16,41 +16,43 @@ interface Project {
   images?: string[];
 }
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 const expenseImages = [
-  "/images/expense-analyzer/expense-1.png",
-  "/images/expense-analyzer/expense-2.png",
-  "/images/expense-analyzer/expense-3.png",
-  "/images/expense-analyzer/expense-4.png",
-  "/images/expense-analyzer/expense-5.png",
-  "/images/expense-analyzer/expense-6.png",
-  "/images/expense-analyzer/expense-7.png",
+  `${BASE_PATH}/images/expense-analyzer/expense-1.png`,
+  `${BASE_PATH}/images/expense-analyzer/expense-2.png`,
+  `${BASE_PATH}/images/expense-analyzer/expense-3.png`,
+  `${BASE_PATH}/images/expense-analyzer/expense-4.png`,
+  `${BASE_PATH}/images/expense-analyzer/expense-5.png`,
+  `${BASE_PATH}/images/expense-analyzer/expense-6.png`,
+  `${BASE_PATH}/images/expense-analyzer/expense-7.png`,
 ];
 
 const learningImages = [
-  "/images/learning-companion/learning-1.png",
-  "/images/learning-companion/learning-2.png",
-  "/images/learning-companion/learning-3.png",
-  "/images/learning-companion/learning-4.png",
-  "/images/learning-companion/learning-5.png",
-  "/images/learning-companion/learning-6.png",
-  "/images/learning-companion/learning-7.png",
-  "/images/learning-companion/learning-8.png",
+  `${BASE_PATH}/images/learning-companion/learning-1.png`,
+  `${BASE_PATH}/images/learning-companion/learning-2.png`,
+  `${BASE_PATH}/images/learning-companion/learning-3.png`,
+  `${BASE_PATH}/images/learning-companion/learning-4.png`,
+  `${BASE_PATH}/images/learning-companion/learning-5.png`,
+  `${BASE_PATH}/images/learning-companion/learning-6.png`,
+  `${BASE_PATH}/images/learning-companion/learning-7.png`,
+  `${BASE_PATH}/images/learning-companion/learning-8.png`,
 ];
 
 const cadImages = [
-  "/images/cad-app/cad-1.png",
-  "/images/cad-app/cad-2.png",
-  "/images/cad-app/cad-3.png",
-  "/images/cad-app/cad-4.png",
-  "/images/cad-app/cad-5.png",
+  `${BASE_PATH}/images/cad-app/cad-1.png`,
+  `${BASE_PATH}/images/cad-app/cad-2.png`,
+  `${BASE_PATH}/images/cad-app/cad-3.png`,
+  `${BASE_PATH}/images/cad-app/cad-4.png`,
+  `${BASE_PATH}/images/cad-app/cad-5.png`,
 ];
 
 const freshRouteImages = [
-  "/images/fresh-route/fresh-route-1.png",
-  "/images/fresh-route/fresh-route-2.png",
-  "/images/fresh-route/fresh-route-3.png",
-  "/images/fresh-route/fresh-route-4.png",
-  "/images/fresh-route/fresh-route-5.png",
+  `${BASE_PATH}/images/fresh-route/fresh-route-1.png`,
+  `${BASE_PATH}/images/fresh-route/fresh-route-2.png`,
+  `${BASE_PATH}/images/fresh-route/fresh-route-3.png`,
+  `${BASE_PATH}/images/fresh-route/fresh-route-4.png`,
+  `${BASE_PATH}/images/fresh-route/fresh-route-5.png`,
 ];
 
 const projects: Project[] = [

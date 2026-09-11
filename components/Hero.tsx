@@ -7,6 +7,8 @@ import MagneticButton from "./MagneticButton";
 import NameReveal from "./NameReveal";
 import CountUp from "./CountUp";
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
@@ -68,7 +70,7 @@ export default function Hero() {
               </MagneticButton>
               <MagneticButton strength={0.25}>
                 <a
-                  href="/pamindu-welikada-cv.pdf"
+                  href={`${BASE_PATH}/pamindu-welikada-cv.pdf`}
                   download
                   className="glass flex items-center gap-2 !rounded-xl px-8 py-3.5 text-sm font-semibold text-white transition-all hover:!border-white/20 hover:!bg-white/[0.06]"
                 >
@@ -124,7 +126,7 @@ export default function Hero() {
             <div className="glass !rounded-3xl overflow-hidden shadow-[0_0_60px_rgba(255,106,61,0.08)]">
               <div className="relative h-[380px] w-[300px] md:h-[480px] md:w-[380px]">
                 <Image
-                  src="/images/portrait-desk.jpg"
+                  src={`${BASE_PATH}/images/portrait-desk.jpg`}
                   alt="Pamindu Welikada"
                   fill
                   sizes="380px"

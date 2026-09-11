@@ -4,6 +4,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import Reveal from "./Reveal";
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 const roles = [
   {
     org: "Horana Toastmasters Club",
@@ -28,7 +30,7 @@ export default function Experience() {
             <div className="glass !rounded-3xl overflow-hidden mx-auto max-w-[300px] shadow-[0_0_40px_rgba(255,106,61,0.06)]">
               <div className="relative aspect-[4/5] w-full">
                 <Image
-                  src="/images/portrait-formal.jpg"
+                  src={`${BASE_PATH}/images/portrait-formal.jpg`}
                   alt="Pamindu Welikada at a Toastmasters event"
                   fill
                   sizes="300px"
