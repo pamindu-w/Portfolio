@@ -64,41 +64,7 @@ const categories: Category[] = [
   { title: "Integrations & AI", accent: "signal", skills: byName(["JWT Auth", "Stripe API", "Gemini AI"]) },
 ];
 
-const primarySkills = skills.filter((_, i) => i % 2 === 0);
-const secondarySkills = skills.filter((_, i) => i % 2 === 1);
-
 export default function Skills() {
-  const row = (list: Skill[], accent: "signal" | "teal", hidden: boolean) => (
-    <div
-      className={`flex shrink-0 items-center gap-3 pr-3 ${
-        hidden ? "aria-hidden" : ""
-      }`}
-      aria-hidden={hidden || undefined}
-    >
-      {list.map((skill) => {
-        const Icon = skill.icon;
-        return (
-          <div
-            key={skill.name}
-            className={`group skill-tile ${
-              accent === "teal" ? "skill-tile--teal" : ""
-            }`}
-          >
-            <Icon
-              size={22}
-              className={`transition-colors duration-300 text-white/70 ${
-                accent === "teal" ? "group-hover:text-teal" : "group-hover:text-signal"
-              }`}
-            />
-            <span className="text-[11px] font-medium leading-none text-center text-white/80">
-              {skill.name}
-            </span>
-          </div>
-        );
-      })}
-    </div>
-  );
-
   return (
     <section
       id="skills"
@@ -203,76 +169,7 @@ export default function Skills() {
           </div>
         </Reveal>
 
-        <Reveal>
-          <div className="marquee glass skill-row-mask !rounded-3xl overflow-hidden py-6 md:py-8">
-            <div className="skill-row-mask flex flex-col gap-4 md:gap-6">
-              <div className="skill-track flex w-max">
-                {row(primarySkills, "signal", false)}
-                {row(primarySkills, "signal", true)}
-              </div>
-              <div className="skill-track-reverse flex w-max">
-                {row(primarySkills, "teal", false)}
-                {row(primarySkills, "teal", true)}
-              </div>
-            </div>
-          </div>
-        </Reveal>
       </div>
-
-      <style jsx>{`
-        @keyframes skillMarquee {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
-        }
-        @keyframes skillMarqueeReverse {
-          from { transform: translateX(0); }
-          to { transform: translateX(50%); }
-        }
-        .skill-track,
-        .skill-track-reverse {
-          will-change: transform;
-        }
-        .skill-track {
-          animation: skillMarquee 45s linear infinite;
-        }
-        .skill-track-reverse {
-          animation: skillMarqueeReverse 45s linear infinite;
-        }
-        .marquee:hover .skill-track,
-        .marquee:hover .skill-track-reverse {
-          animation-play-state: paused;
-        }
-        .skill-row-mask {
-          mask-image: linear-gradient(to right, transparent, black 13%, black 87%, transparent);
-          -webkit-mask-image: linear-gradient(to right, transparent, black 13%, black 87%, transparent);
-        }
-        .skill-tile {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 0.5rem;
-          width: 104px;
-          min-width: 104px;
-          height: 88px;
-          background: rgba(255, 255, 255, 0.03);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 1rem;
-          transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s, background 0.3s;
-        }
-        .skill-tile:hover {
-          border-color: rgba(255, 106, 61, 0.45);
-          box-shadow: 0 0 30px rgba(255, 106, 61, 0.12);
-          background: rgba(255, 255, 255, 0.05);
-          transform: translateY(-3px);
-        }
-        .skill-tile--teal:hover {
-          border-color: rgba(79, 214, 196, 0.45);
-          box-shadow: 0 0 30px rgba(79, 214, 196, 0.12);
-        }
-      `}</style>
     </section>
   );
 }
