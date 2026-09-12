@@ -149,14 +149,14 @@ export default function Skills() {
                           }`}
                         >
                           <Icon
-                            size={16}
+                            size={28}
                             className={`inline-block text-white/70 transition-colors duration-300 ${
                               cat.accent === "teal"
                                 ? "group-hover:text-teal"
                                 : "group-hover:text-signal"
                             }`}
                           />
-                          <span className="ml-2 text-[13px] font-medium text-white/90 align-middle">
+                          <span className="ml-2 text-base font-semibold text-white align-middle">
                             {skill.name}
                           </span>
                         </div>
