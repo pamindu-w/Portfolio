@@ -1,4 +1,4 @@
-import { Truck, Receipt, BookOpen, CalendarDays, Shapes, type LucideIcon } from "lucide-react";
+import { Truck, Receipt, BookOpen, CalendarDays, Shapes, Car, type LucideIcon } from "lucide-react";
 import type { ComponentType } from "react";
 import TiltPanel from "./TiltPanel";
 import CampusArt from "./art/CampusArt";
@@ -55,6 +55,12 @@ const freshRouteImages = [
   `${BASE_PATH}/images/fresh-route/fresh-route-5.png`,
 ];
 
+const vehicleImages = [
+  `${BASE_PATH}/images/vehicle-price-predictor/vehicle-1.png`,
+  `${BASE_PATH}/images/vehicle-price-predictor/vehicle-2.png`,
+  `${BASE_PATH}/images/vehicle-price-predictor/vehicle-3.png`,
+];
+
 const projects: Project[] = [
   {
     index: "01",
@@ -94,6 +100,15 @@ const projects: Project[] = [
   },
   {
     index: "05",
+    icon: Car,
+    name: "Vehicle Price Predictor",
+    tagline: "ML-powered used-vehicle price estimation for the Sri Lankan market",
+    body: "An end-to-end machine learning app that predicts used-vehicle prices in LKR. A FastAPI + CatBoost backend serves the estimate while a React and TypeScript frontend collects the listing through cascading brand, model and town dropdowns — and returns a 10th–90th percentile price range with a confidence score, plus a compare-two-vehicles mode.",
+    stack: ["Python", "FastAPI", "CatBoost", "XGBoost", "React", "TypeScript", "Tailwind CSS"],
+    images: vehicleImages,
+  },
+  {
+    index: "06",
     icon: Shapes,
     name: "2D CAD Application",
     tagline: "Draw, fill, rotate and mirror — rendered in OpenGL",
