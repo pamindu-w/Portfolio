@@ -1,4 +1,4 @@
-import { Truck, Receipt, BookOpen, CalendarDays, Shapes, Car, type LucideIcon } from "lucide-react";
+import { Truck, Receipt, BookOpen, CalendarDays, Shapes, Car, Gauge, type LucideIcon } from "lucide-react";
 import type { ComponentType } from "react";
 import TiltPanel from "./TiltPanel";
 import CampusArt from "./art/CampusArt";
@@ -61,6 +61,11 @@ const vehicleImages = [
   `${BASE_PATH}/images/vehicle-price-predictor/vehicle-3.png`,
 ];
 
+const predictiveImages = [
+  `${BASE_PATH}/images/predictive-maintenance/predictive-1.png`,
+  `${BASE_PATH}/images/predictive-maintenance/predictive-2.png`,
+];
+
 const projects: Project[] = [
   {
     index: "01",
@@ -109,6 +114,15 @@ const projects: Project[] = [
   },
   {
     index: "06",
+    icon: Gauge,
+    name: "Predictive Maintenance & RUL System",
+    tagline: "Predicts engine failure before it happens — trained on NASA C-MAPSS data",
+    body: "An end-to-end system trained on NASA C-MAPSS turbofan data that predicts Remaining Useful Life with an LSTM regressor and classifies engine health as Healthy, Warning or Critical with a Random Forest classifier. A FastAPI backend serves the models while a React frontend accepts sensor readings and returns the maintenance status, and — with enough history — the RUL and a confidence signal.",
+    stack: ["Python", "FastAPI", "LSTM", "Random Forest", "React", "TypeScript", "Tailwind CSS"],
+    images: predictiveImages,
+  },
+  {
+    index: "07",
     icon: Shapes,
     name: "2D CAD Application",
     tagline: "Draw, fill, rotate and mirror — rendered in OpenGL",
